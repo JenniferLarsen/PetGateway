@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using PetGateway.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Add EF Core DI
+builder.Services.AddDbContext<GatewayContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("GatewayContext")));
 
 var app = builder.Build();
 
