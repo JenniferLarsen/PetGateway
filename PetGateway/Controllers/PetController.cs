@@ -60,7 +60,7 @@ namespace PetGateway.Controllers
                 if (pet.PetId== 0)
                 {
                     // Adding a new pet
-                    pet.OwnerId = ViewBag.OwnerId;//may not need
+                    //pet.OwnerId = ViewBag.OwnerId;//may not need - Had to comment out - was causing errors adding pet - JLL
                     context.Pets.Add(pet);
                 }
                 else
