@@ -18,7 +18,7 @@ namespace PetGateway.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult AboutProject()
         {
             return View();
         }

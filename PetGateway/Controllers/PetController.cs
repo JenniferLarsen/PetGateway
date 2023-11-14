@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PetGateway.Models;
 
@@ -10,34 +11,42 @@ namespace PetGateway.Controllers
         public PetController(GatewayContext ctx) => context = ctx;
 
         //view all pets for a specific owner
+
         [HttpGet]
         public IActionResult Index(int ownerId)
         {
-            var owner = context.Owners
-                .Include(o => o.Pets)
-                .FirstOrDefault(o => o.OwnerId == ownerId);
-
-            if (owner == null)
-            {
-                return NotFound();
-            }
-
-            // Pass the List<Sample.Models.Pet> to the view
-            var pets = owner.Pets.ToList();
+            var pets = context.Pets
+                .Include(p => p.Owner) // Include the Owner navigation property
+                .Where(p => p.OwnerId == ownerId)
+                .ToList();
 
             return View(pets);
         }
+
+        //view All pets
+        [HttpGet]
+        public IActionResult ViewAll()
+        {
+            var pets = context.Pets
+                .Include(p => p.Owner) // Include the Owner navigation property
+                .ToList();
+
+            return View("Index", pets);
+        }
+
+
 
         // Display the form to add a new pet for a specific owner
         [HttpGet]
         public IActionResult Add(int ownerId)
         {
             ViewBag.Action = "Add";
+            ViewBag.Owners = new SelectList(context.Owners, "OwnerId", "FullName"); //Added this line to create list of owners - JLL
             return View("Edit", new Pet());
-        }  
+        }
 
         // Display the form to edit a specific pet
-        [HttpGet]       
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var pet = context.Pets.Find(id);
@@ -47,10 +56,15 @@ namespace PetGateway.Controllers
                 return NotFound();
             }
 
+            ViewBag.Action = "Edit";
+            ViewBag.Owners = new SelectList(context.Owners, "OwnerId", "FullName", pet.OwnerId);
 
+            // Ensure that the OwnerId is set in the ViewBag for the Cancel button
+            ViewBag.OwnerId = pet.OwnerId;
 
             return View(pet);
         }
+
 
         [HttpPost]       
         public IActionResult Edit(Pet pet)
@@ -60,7 +74,7 @@ namespace PetGateway.Controllers
                 if (pet.PetId== 0)
                 {
                     // Adding a new pet
-                    pet.OwnerId = ViewBag.OwnerId;//may not need
+                    //pet.OwnerId = ViewBag.OwnerId;//may not need - Had to comment out - was causing errors adding pet - JLL
                     context.Pets.Add(pet);
                 }
                 else
@@ -76,6 +90,13 @@ namespace PetGateway.Controllers
             ViewBag.Action = (pet.PetId == 0) ? "Add" : "Edit";
             //ViewBag.OwnerId = pet.OwnerId;
             return View(pet);
+        }
+
+        [HttpPost]
+        public IActionResult Cancel(int ownerId)
+        {
+            // Redirect to the list of pets for the specific owner
+            return RedirectToAction("Index", "Pet", new { ownerId });
         }
 
 
