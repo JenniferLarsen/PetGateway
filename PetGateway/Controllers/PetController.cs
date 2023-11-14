@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PetGateway.Models;
 
@@ -33,6 +34,7 @@ namespace PetGateway.Controllers
         public IActionResult Add(int ownerId)
         {
             ViewBag.Action = "Add";
+            ViewBag.Owners = new SelectList(context.Owners, "OwnerId", "FullName"); //Added this line to create list of owners - JLL
             return View("Edit", new Pet());
         }  
 
@@ -47,8 +49,9 @@ namespace PetGateway.Controllers
                 return NotFound();
             }
 
-
-
+            //added viewbag properties to update owner list
+            ViewBag.Action = "Edit";
+            ViewBag.Owners = new SelectList(context.Owners, "OwnerId", "FullName", pet.OwnerId);
             return View(pet);
         }
 
