@@ -7,6 +7,7 @@ namespace PetGateway.Models
     {
         public void Configure(EntityTypeBuilder<PetService> entity)
         {
+            entity.HasKey(p => p.ServiceId);  // Specify the primary key
 
             entity.HasData(
             new PetService { ServiceId = 1, ServiceName = "Visit", Cost = 25 },

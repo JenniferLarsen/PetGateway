@@ -26,6 +26,11 @@ namespace PetGateway.Controllers
         {
             ViewBag.Action = "Edit";
             var owner = context.Owners.Find(id);
+            if (owner == null)
+            {
+                return NotFound();
+            }
+
             return View(owner);
         }
 
@@ -48,18 +53,21 @@ namespace PetGateway.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             var owner = context.Owners.Find(id);
-            return View(owner);
-        }
-        [HttpPost]
-        public IActionResult Delete(Owner owner)
-        {
+
+            if (owner == null)
+            {
+                return NotFound();
+            }
+
             context.Owners.Remove(owner);
-            context.SaveChanges(true);
+            context.SaveChanges();
+
             return RedirectToAction("Index", "Owner");
+
         }
     }
 }

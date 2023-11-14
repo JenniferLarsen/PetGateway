@@ -8,12 +8,13 @@ namespace PetGateway.Models
 
         public DbSet<Owner> Owners { get; set; } = null!;
         public DbSet<Pet> Pets { get; set; } = null!;
+        public DbSet<PetService> PetServices { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             modelBuilder.ApplyConfiguration(new ConfigureOwners());
             modelBuilder.ApplyConfiguration(new ConfigurePets());
-
+            modelBuilder.ApplyConfiguration(new ConfigurePetServices());
         }
     }
 }
