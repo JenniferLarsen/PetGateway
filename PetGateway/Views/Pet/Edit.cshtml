@@ -66,8 +66,10 @@
     </div>
 
     <input type="hidden" asp-for="PetId" />
+    <input type="hidden" asp-for="OwnerId" />
     <button type="submit" class="btn btn-primary">Save</button>
-    <a asp-controller="Pet" asp-action="Index" class="btn btn-primary">Cancel</a>
+    @* <a asp-controller="Pet" asp-action="Index" class="btn btn-primary">Cancel</a> *@ 
+    <a asp-controller="Pet" asp-action="Index" asp-route-ownerId="@Model.OwnerId" class="btn btn-primary">Cancel</a>
 
 </form>
 

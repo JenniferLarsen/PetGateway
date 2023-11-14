@@ -47,10 +47,10 @@ namespace PetGateway.Controllers
             ViewBag.Action = "Add";
             ViewBag.Owners = new SelectList(context.Owners, "OwnerId", "FullName"); //Added this line to create list of owners - JLL
             return View("Edit", new Pet());
-        }  
+        }
 
         // Display the form to edit a specific pet
-        [HttpGet]       
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var pet = context.Pets.Find(id);
@@ -60,9 +60,12 @@ namespace PetGateway.Controllers
                 return NotFound();
             }
 
-            //added viewbag properties to update owner list
             ViewBag.Action = "Edit";
             ViewBag.Owners = new SelectList(context.Owners, "OwnerId", "FullName", pet.OwnerId);
+
+            // Ensure that the OwnerId is set in the ViewBag for the Cancel button
+            ViewBag.OwnerId = pet.OwnerId;
+
             return View(pet);
         }
 
@@ -90,6 +93,13 @@ namespace PetGateway.Controllers
             ViewBag.Action = (pet.PetId == 0) ? "Add" : "Edit";
             //ViewBag.OwnerId = pet.OwnerId;
             return View(pet);
+        }
+
+        [HttpPost]
+        public IActionResult Cancel(int ownerId)
+        {
+            // Redirect to the list of pets for the specific owner
+            return RedirectToAction("Index", "Pet", new { ownerId });
         }
 
 
