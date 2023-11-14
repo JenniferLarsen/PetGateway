@@ -12,7 +12,8 @@ namespace PetGateway.Controllers
 
         //view all pets for a specific owner
         [HttpGet]
-        public IActionResult Index(int ownerId)
+        // I commented this out and created the below Index to return to when clicking cancel - JLL
+        /*public IActionResult Index(int ownerId)
         {
             var owner = context.Owners
                 .Include(o => o.Pets)
@@ -25,6 +26,16 @@ namespace PetGateway.Controllers
 
             // Pass the List<Sample.Models.Pet> to the view
             var pets = owner.Pets.ToList();
+
+            return View(pets);
+        }*/
+
+        public IActionResult Index(int ownerId)
+        {
+            var pets = context.Pets
+                .Include(p => p.Owner) // Include the Owner navigation property
+                .Where(p => p.OwnerId == ownerId)
+                .ToList();
 
             return View(pets);
         }
