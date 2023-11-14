@@ -27,8 +27,14 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "pet",
+    pattern: "pets/{action=Index}/{id?}",
+    defaults: new { controller = "Pet" });
+
+app.MapControllerRoute(
     name: "owner",
-    pattern: "{controller=Owner}/{action=Index}/{id?}");
+    pattern: "owners/{action=Index}/{id?}",
+    defaults: new { controller = "Owner" });
 
 app.MapControllerRoute(
     name: "default",

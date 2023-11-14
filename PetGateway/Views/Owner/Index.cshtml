@@ -37,8 +37,14 @@
                 <td>@owner.Email</td>
 
                 <td>
-                    <a asp-asp-controller="Owner" asp-action="Edit" asp-route-itemid="@owner.OwnerId">Edit</a>
-                    <a asp-asp-controller="Owner" asp-action="Delete" asp-route-itemid="@owner.OwnerId">Delete</a>
+                    <div class="btn-group">
+                        <a asp-controller="Owner" asp-action="Edit" asp-route-id="@owner.OwnerId" class="btn btn-primary mr-2">Edit</a>
+                        <form asp-controller="Owner" asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@owner.OwnerId" />
+                            <button class="btn btn-danger ml-5" type="submit">Delete</button>
+                        </form>
+                        <a asp-controller="Pet" asp-action="Index" asp-route-ownerId="@owner.OwnerId" class="btn btn-info ml-2">View Pets</a>
+                    </div>
                 </td>
 
             </tr>
