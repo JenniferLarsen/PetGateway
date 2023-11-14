@@ -11,25 +11,8 @@ namespace PetGateway.Controllers
         public PetController(GatewayContext ctx) => context = ctx;
 
         //view all pets for a specific owner
+
         [HttpGet]
-        // I commented this out and created the below Index to return to when clicking cancel - JLL
-        /*public IActionResult Index(int ownerId)
-        {
-            var owner = context.Owners
-                .Include(o => o.Pets)
-                .FirstOrDefault(o => o.OwnerId == ownerId);
-
-            if (owner == null)
-            {
-                return NotFound();
-            }
-
-            // Pass the List<Sample.Models.Pet> to the view
-            var pets = owner.Pets.ToList();
-
-            return View(pets);
-        }*/
-
         public IActionResult Index(int ownerId)
         {
             var pets = context.Pets
@@ -39,6 +22,19 @@ namespace PetGateway.Controllers
 
             return View(pets);
         }
+
+        //view All pets
+        [HttpGet]
+        public IActionResult ViewAll()
+        {
+            var pets = context.Pets
+                .Include(p => p.Owner) // Include the Owner navigation property
+                .ToList();
+
+            return View("Index", pets);
+        }
+
+
 
         // Display the form to add a new pet for a specific owner
         [HttpGet]
@@ -68,6 +64,7 @@ namespace PetGateway.Controllers
 
             return View(pet);
         }
+
 
         [HttpPost]       
         public IActionResult Edit(Pet pet)
