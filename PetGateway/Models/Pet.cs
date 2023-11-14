@@ -16,6 +16,6 @@
         public bool Spayed_Neutered { get; set; } = false;
 
         public int OwnerId { get; set; } //foreign key property
-        public Owner Owner { get; set; } = null!;//navigation property
+        public Owner? Owner { get; set; } = null!;//navigation property
     }
 }
