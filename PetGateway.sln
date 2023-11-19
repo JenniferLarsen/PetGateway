@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetGateway", "PetGateway\PetGateway.csproj", "{25B47F7B-5048-418A-AB9B-1EF6BCF19DB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetGatewayTest", "PetGatewayTest\PetGatewayTest.csproj", "{02ACF823-05D2-4F46-A711-0B90F0C9FAD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetGatewayTest", "PetGatewayTest\PetGatewayTest.csproj", "{6F612E3D-27F1-4948-B918-B84D4E955159}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{25B47F7B-5048-418A-AB9B-1EF6BCF19DB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25B47F7B-5048-418A-AB9B-1EF6BCF19DB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25B47F7B-5048-418A-AB9B-1EF6BCF19DB7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02ACF823-05D2-4F46-A711-0B90F0C9FAD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02ACF823-05D2-4F46-A711-0B90F0C9FAD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02ACF823-05D2-4F46-A711-0B90F0C9FAD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02ACF823-05D2-4F46-A711-0B90F0C9FAD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F612E3D-27F1-4948-B918-B84D4E955159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F612E3D-27F1-4948-B918-B84D4E955159}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F612E3D-27F1-4948-B918-B84D4E955159}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F612E3D-27F1-4948-B918-B84D4E955159}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
