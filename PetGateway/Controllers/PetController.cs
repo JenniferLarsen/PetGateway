@@ -2,20 +2,26 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PetGateway.Models;
+using PetGateway.Repository;
 
 namespace PetGateway.Controllers
 {
     public class PetController : Controller
     {
-        private GatewayContext context { get; set; }
-        public PetController(GatewayContext ctx) => context = ctx;
+        //private GatewayContext context { get; set; }
+        //public PetController(GatewayContext ctx) => context = ctx;
 
-        //view all pets for a specific owner
+        private readonly IPetGatewayRepository repo;
+
+        public PetController(IPetGatewayRepository repository)
+        {
+            repo = repository;
+        }
 
         [HttpGet]
         public IActionResult Index(int ownerId)
         {
-            var pets = context.Pets
+            var pets = repo.GetAllPets()
                 .Include(p => p.Owner) // Include the Owner navigation property
                 .Where(p => p.OwnerId == ownerId)
                 .ToList();
@@ -27,7 +33,7 @@ namespace PetGateway.Controllers
         [HttpGet]
         public IActionResult ViewAll()
         {
-            var pets = context.Pets
+            var pets = repo.GetAllPets()
                 .Include(p => p.Owner) // Include the Owner navigation property
                 .ToList();
 
@@ -41,7 +47,7 @@ namespace PetGateway.Controllers
         public IActionResult Add(int ownerId)
         {
             ViewBag.Action = "Add";
-            ViewBag.Owners = new SelectList(context.Owners, "OwnerId", "FullName"); //Added this line to create list of owners - JLL
+            ViewBag.Owners = new SelectList(repo.GetAllOwners(), "OwnerId", "FullName"); //Added this line to create list of owners - JLL
             return View("Edit", new Pet());
         }
 
@@ -49,7 +55,7 @@ namespace PetGateway.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var pet = context.Pets.Find(id);
+            var pet = repo.GetPetById(id);
 
             if (pet == null)
             {
@@ -57,7 +63,7 @@ namespace PetGateway.Controllers
             }
 
             ViewBag.Action = "Edit";
-            ViewBag.Owners = new SelectList(context.Owners, "OwnerId", "FullName", pet.OwnerId);
+            ViewBag.Owners = new SelectList(repo.GetAllOwners(), "OwnerId", "FullName", pet.OwnerId);
 
             // Ensure that the OwnerId is set in the ViewBag for the Cancel button
             ViewBag.OwnerId = pet.OwnerId;
@@ -75,15 +81,15 @@ namespace PetGateway.Controllers
                 {
                     // Adding a new pet
                     //pet.OwnerId = ViewBag.OwnerId;//may not need - Had to comment out - was causing errors adding pet - JLL
-                    context.Pets.Add(pet);
+                    repo.AddPet(pet);
                 }
                 else
                 {                             
 
-                    context.Pets.Update(pet);
+                    repo.UpdatePet(pet);
                 }
 
-                context.SaveChanges();
+                repo.SaveChanges();
                 return RedirectToAction("Index",new { ownerId = pet.OwnerId });
             }
 
@@ -104,15 +110,15 @@ namespace PetGateway.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var pet = context.Pets.Find(id);
+            var pet = repo.GetPetById(id);
 
             if (pet == null)
             {
                 return NotFound();
             }
 
-            context.Pets.Remove(pet);
-            context.SaveChangesAsync();
+            repo.DeletePet(id);
+            repo.SaveChanges();
             return RedirectToAction("Index", new { ownerId = pet.OwnerId });
         }
     }

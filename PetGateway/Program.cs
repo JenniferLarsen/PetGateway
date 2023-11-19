@@ -1,7 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using PetGateway.Models;
+using PetGateway.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Add DI
+builder.Services.AddTransient<IPetGatewayRepository, PetGatewayRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

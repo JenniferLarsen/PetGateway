@@ -1,16 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetGateway.Models;
+using PetGateway.Repository;
 
 namespace PetGateway.Controllers
 {
     public class OwnerController : Controller
     {
-        private GatewayContext context { get; set; }
-        public OwnerController(GatewayContext ctx) => context = ctx;
+        //private GatewayContext context { get; set; }
+        //public OwnerController(GatewayContext ctx) => context = ctx;
+
+        private readonly IPetGatewayRepository repo;
+
+        public OwnerController(IPetGatewayRepository repository)
+        {
+            repo = repository;
+        }
 
         public IActionResult Index()
         {
-            var owners = context.Owners.OrderBy(o => o.LastName).ToList();
+            var owners = repo.GetAllOwners().OrderBy(o => o.LastName).ToList();
             return View(owners);
         }
 
@@ -25,7 +33,7 @@ namespace PetGateway.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.Action = "Edit";
-            var owner = context.Owners.Find(id);
+            var owner = repo.GetOwnerById(id);
             if (owner == null)
             {
                 return NotFound();
@@ -40,10 +48,10 @@ namespace PetGateway.Controllers
             if (ModelState.IsValid)
             {
                 if (owner.OwnerId == 0)
-                    context.Owners.Add(owner);
+                    repo.AddOwner(owner);
                 else
-                    context.Owners.Update(owner);
-                context.SaveChanges();
+                    repo.UpdateOwner(owner);
+                repo.SaveChanges();
                 return RedirectToAction("Index", "Owner");
             }
             else
@@ -56,15 +64,15 @@ namespace PetGateway.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var owner = context.Owners.Find(id);
+            var owner = repo.GetOwnerById(id);
 
             if (owner == null)
             {
                 return NotFound();
             }
 
-            context.Owners.Remove(owner);
-            context.SaveChanges();
+            repo.DeleteOwner(id);
+            repo.SaveChanges();
 
             return RedirectToAction("Index", "Owner");
 
