@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetGateway.Models;
 using PetGateway.Repository;
 
@@ -16,19 +17,23 @@ namespace PetGateway.Controllers
             repo = repository;
         }
 
+        //add auth edit should be anonymous ckc
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var owners = repo.GetAllOwners().OrderBy(o => o.LastName).ToList();
             return View(owners);
         }
-
+        //add auth edit should be anonymous ckc
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Add()
         {
             ViewBag.Action = "Add";
             return View("Edit", new Owner());
         }
-
+        //add auth edit should be anonymous ckc
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -43,6 +48,8 @@ namespace PetGateway.Controllers
         }
 
         [HttpPost]
+        //add auth edit should be anonymous
+        [AllowAnonymous]
         public IActionResult Edit(Owner owner)
         {
             if (ModelState.IsValid)
@@ -62,6 +69,8 @@ namespace PetGateway.Controllers
         }
 
         [HttpPost]
+        //add auth cancel should be authorized ckc
+        [Authorize]
         public IActionResult Delete(int id)
         {
             var owner = repo.GetOwnerById(id);
