@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetGateway.Models;
 using PetGateway.Repository;
 
 namespace PetGateway.Controllers
 {
+    [Authorize]
     public class OwnerController : Controller
     {
         //private GatewayContext context { get; set; }
@@ -21,14 +23,14 @@ namespace PetGateway.Controllers
             var owners = repo.GetAllOwners().OrderBy(o => o.LastName).ToList();
             return View(owners);
         }
-
+        
         [HttpGet]
         public IActionResult Add()
         {
             ViewBag.Action = "Add";
             return View("Edit", new Owner());
         }
-
+        
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -41,7 +43,7 @@ namespace PetGateway.Controllers
 
             return View(owner);
         }
-
+        
         [HttpPost]
         public IActionResult Edit(Owner owner)
         {
@@ -60,7 +62,7 @@ namespace PetGateway.Controllers
                 return View(owner);
             }
         }
-
+        
         [HttpPost]
         public IActionResult Delete(int id)
         {

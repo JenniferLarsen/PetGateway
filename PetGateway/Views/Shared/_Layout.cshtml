@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PetGateway.styles.css" asp-append-version="true" />
+    <link 
 </head>
 <body>
     <header>
@@ -23,7 +24,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         @* <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li> *@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Owner" asp-action="Index">View All Owners</a>
@@ -33,9 +34,37 @@
                         </li>
                     </ul>
                 </div>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                     <a class="nav-link text-dark" asp-controller="Home" asp-action="AboutProject">About Project</a>
                 </div>
+            </div>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                <!-- Login buttons and links -->
+                @using Microsoft.AspNetCore.Identity
+                @using PetGateway.Models;
+                @inject SignInManager<User> signInManager
+                <ul class="navbar-nav flex-grow-2">
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                    // signed-in user - Log Out button and username
+                        <li class="nav-item-">
+                            <form method="post" asp-action= "LogOut" asp-controller="Account" asp-area="">
+                                <span class="text-dark">Hello: @User.Identity.Name</span>
+                                <input type="submit" value="Log Out" />
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        // anonymous user - Register link and Log In button
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">&nbsp;Login</a>
+                        </li>
+                    }
+                </ul>
             </div>
         </nav>
     </header>
