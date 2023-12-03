@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace PetGateway.Models
 {
-    public class GatewayContext : DbContext
+    public class GatewayContext : IdentityDbContext<User>
     {
         public GatewayContext(DbContextOptions<GatewayContext> options) : base(options) { }
 
@@ -11,6 +12,7 @@ namespace PetGateway.Models
         public DbSet<PetService> PetServices { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new ConfigureOwners());
             modelBuilder.ApplyConfiguration(new ConfigurePets());

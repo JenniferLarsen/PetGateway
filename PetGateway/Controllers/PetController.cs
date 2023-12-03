@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PetGateway.Models;
@@ -6,6 +7,7 @@ using PetGateway.Repository;
 
 namespace PetGateway.Controllers
 {
+    [Authorize]
     public class PetController : Controller
     {
         //private GatewayContext context { get; set; }
@@ -43,6 +45,7 @@ namespace PetGateway.Controllers
 
 
         // Display the form to add a new pet for a specific owner
+  
         [HttpGet]
         public IActionResult Add(int ownerId)
         {
