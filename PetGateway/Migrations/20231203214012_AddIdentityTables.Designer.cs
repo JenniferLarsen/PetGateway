@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetGateway.Models;
 
@@ -11,9 +12,11 @@ using PetGateway.Models;
 namespace PetGateway.Migrations
 {
     [DbContext(typeof(GatewayContext))]
-    partial class GatewayContextModelSnapshot : ModelSnapshot
+    [Migration("20231203214012_AddItentityTables")]
+    partial class AddItentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

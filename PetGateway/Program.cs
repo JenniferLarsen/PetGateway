@@ -1,17 +1,34 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PetGateway.Models;
 using PetGateway.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 //Add DI
 builder.Services.AddTransient<IPetGatewayRepository, PetGatewayRepository>();
+
+// MUST BE CALLED before AddControllersWithViews
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 //Add EF Core DI
 builder.Services.AddDbContext<GatewayContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("GatewayContext")));
+
+//Add Identity Middleware
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = false;
+})
+    .AddEntityFrameworkStores<GatewayContext>()
+    .AddDefaultTokenProviders();
+
 
 var app = builder.Build();
 
@@ -28,7 +45,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",
