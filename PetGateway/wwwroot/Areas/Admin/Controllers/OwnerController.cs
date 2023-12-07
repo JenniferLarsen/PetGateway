@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace PetGateway.wwwroot.Areas.Admin.Controllers
+namespace PetGateway.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    [Area("Admin")]
     public class OwnerController : Controller
     {
         private readonly IPetGatewayRepository repo;
