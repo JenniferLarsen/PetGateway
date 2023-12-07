@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PetGateway.Models;
 using PetGateway.Repository;
+using System.Data;
 
 namespace PetGateway.Controllers
 {
@@ -62,7 +64,8 @@ namespace PetGateway.Controllers
                 return View(owner);
             }
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Delete(int id)
         {

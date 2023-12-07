@@ -58,6 +58,7 @@ namespace PetGateway.Areas.Admin.Controllers
             }
         }
 
+     
         [HttpPost]
         public IActionResult Delete(int id)
         {

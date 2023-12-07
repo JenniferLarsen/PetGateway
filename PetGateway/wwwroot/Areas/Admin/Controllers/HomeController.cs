@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace PetGateway.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
-    [Area("Admin")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -23,7 +22,7 @@ namespace PetGateway.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(Admin);
         }
 
         public IActionResult AboutProject()
