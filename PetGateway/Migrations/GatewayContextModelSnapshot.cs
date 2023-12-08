@@ -197,7 +197,7 @@ namespace PetGateway.Migrations
 
                     b.HasKey("OwnerId");
 
-                    b.ToTable("Owners");
+                    b.ToTable("Owners", (string)null);
 
                     b.HasData(
                         new
@@ -270,7 +270,7 @@ namespace PetGateway.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Pets");
+                    b.ToTable("Pets", (string)null);
 
                     b.HasData(
                         new
@@ -331,7 +331,7 @@ namespace PetGateway.Migrations
 
                     b.HasKey("ServiceId");
 
-                    b.ToTable("PetServices");
+                    b.ToTable("PetServices", (string)null);
 
                     b.HasData(
                         new

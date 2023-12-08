@@ -48,6 +48,16 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using (var scope = scopeFactory.CreateScope())
+{
+    await ConfigureIdentity.CreateAdminUserAsync(scope.ServiceProvider);
+}
+
+app.MapAreaControllerRoute(
+    name: "Admin",
+    areaName: "Admin",
+    pattern: "Admin/{controller=Home}/{action=Index}");
 
 app.MapControllerRoute(
     name: "default",
@@ -57,6 +67,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "pet",
     pattern: "{controller=Pet}/{action=Index}/{ownerId?}");
+
 
 
 

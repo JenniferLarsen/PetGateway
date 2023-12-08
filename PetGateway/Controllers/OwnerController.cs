@@ -62,7 +62,8 @@ namespace PetGateway.Controllers
                 return View(owner);
             }
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Delete(int id)
         {
