@@ -12,8 +12,8 @@ using PetGateway.Models;
 namespace PetGateway.Migrations
 {
     [DbContext(typeof(GatewayContext))]
-    [Migration("20231203214012_AddItentityTables")]
-    partial class AddItentityTables
+    [Migration("20231207010752_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
