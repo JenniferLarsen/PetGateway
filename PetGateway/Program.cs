@@ -55,9 +55,10 @@ using (var scope = scopeFactory.CreateScope())
 }
 
 app.MapAreaControllerRoute(
-    name: "admin",
+
+    name: "Admin",
     areaName: "Admin",
-    pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+    pattern: "Admin/{controller=Home}/{action=Index}");
 
 app.MapControllerRoute(
     name: "default",
@@ -67,6 +68,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "pet",
     pattern: "{controller=Pet}/{action=Index}/{ownerId?}");
+
 
 
 

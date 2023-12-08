@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace PetGateway.Models
+namespace PetGateway.Areas.Admin.Models
 {
     public class UserViewModel
     {
