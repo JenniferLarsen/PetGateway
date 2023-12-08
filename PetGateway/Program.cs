@@ -55,7 +55,6 @@ using (var scope = scopeFactory.CreateScope())
 }
 
 app.MapAreaControllerRoute(
-
     name: "Admin",
     areaName: "Admin",
     pattern: "Admin/{controller=Home}/{action=Index}");

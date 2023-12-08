@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PetGateway.Models;
 using PetGateway.Repository;
-using System.Data;
 
 namespace PetGateway.Controllers
 {
