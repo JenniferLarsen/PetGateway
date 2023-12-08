@@ -1,18 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using PetGateway.Models;
-using PetGateway.Repository;
-using System.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace PetGateway.Controllers
+namespace PetGateway.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
+    [Area("Admin")]
     public class OwnerController : Controller
     {
-        //private GatewayContext context { get; set; }
-        //public OwnerController(GatewayContext ctx) => context = ctx;
-
         private readonly IPetGatewayRepository repo;
 
         public OwnerController(IPetGatewayRepository repository)
@@ -25,14 +18,14 @@ namespace PetGateway.Controllers
             var owners = repo.GetAllOwners().OrderBy(o => o.LastName).ToList();
             return View(owners);
         }
-        
+
         [HttpGet]
         public IActionResult Add()
         {
             ViewBag.Action = "Add";
             return View("Edit", new Owner());
         }
-        
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -45,7 +38,7 @@ namespace PetGateway.Controllers
 
             return View(owner);
         }
-        
+
         [HttpPost]
         public IActionResult Edit(Owner owner)
         {
@@ -65,7 +58,7 @@ namespace PetGateway.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+     
         [HttpPost]
         public IActionResult Delete(int id)
         {

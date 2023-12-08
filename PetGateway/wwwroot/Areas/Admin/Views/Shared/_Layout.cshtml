@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - PetGateway</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/PetGateway.styles.css" asp-append-version="true" /> 
+    <link rel="stylesheet" href="~/PetGateway.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -31,9 +31,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Pet" asp-action="ViewAll">View All Pets</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a>
-                        </li>
                     </ul>
                 </div>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
@@ -50,7 +47,7 @@
                     {
                     // signed-in user - Log Out button and username
                         <li class="nav-item-">
-                            <form method="post" asp-action= "LogOut" asp-controller="Account" asp-area="">
+                            <form method="post" asp-action="LogOut" asp-controller="Account" asp-area="">
                                 <span class="text-dark">Hello: @User.Identity.Name</span>
                                 <input type="submit" value="Log Out" />
                             </form>
