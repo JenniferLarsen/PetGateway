@@ -14,12 +14,15 @@ namespace PetGateway.Models
 
 		[Required(ErrorMessage = "Last name is required.")]
 		public string LastName { get; set; } = string.Empty;
-
+        [Required(ErrorMessage = "Address is required.")]
         public string Address { get; set; } = string.Empty;
+        [Required(ErrorMessage = "City is required.")]
         public string City { get; set; } = string.Empty;
+        [Required(ErrorMessage = "State is required.")]
         public string State { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Postal Code is required.")]
         public string PostalCode { get; set; } = string.Empty;
-
+        [Required(ErrorMessage = "Phone Number is required.")]
         public string PhoneNumber { get; set; } = string.Empty;
 
 		[EmailAddress(ErrorMessage = "Invalid email address.")]
