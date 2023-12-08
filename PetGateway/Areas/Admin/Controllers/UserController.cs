@@ -13,11 +13,13 @@ namespace PetGateway.Areas.Admin.Controllers
     {
         private UserManager<User> userManager;
         private RoleManager<IdentityRole> roleManager;
+        private SignInManager<User> signInManager;
 
-        public UserController(UserManager<User> userMngr, RoleManager<IdentityRole> roleMngr)
+        public UserController(UserManager<User> userMngr, RoleManager<IdentityRole> roleMngr, SignInManager<User> signInManager)
         {
             userManager = userMngr;
             roleManager = roleMngr;
+            this.signInManager = signInManager;
         }
 
         public async Task<IActionResult> Index()
@@ -95,6 +97,35 @@ namespace PetGateway.Areas.Admin.Controllers
         {
             await roleManager.CreateAsync(new IdentityRole("Admin"));
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View("Add");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new User { UserName = model.Username };
+                var result = await userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(model);
         }
     }
 }
