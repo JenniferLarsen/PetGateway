@@ -19,7 +19,7 @@ Welcome to the Pet Gateway application! This application serves as a gateway for
 
 ## Contributors/Maintainers
   - Amy Miles, Project Manager ([amy-miles](https://github.com/amy-miles))
-  - Jennifer Larsen, Repository Owner ([JenniferLarsen](https://github.com/JenniferLarsen))
+  - Jennifer Larsen, Repository Manager ([JenniferLarsen](https://github.com/JenniferLarsen))
 
 *For a limited time the project will be published to Azure at ([Pet Gateway](https://cis174jldillinger.azurewebsites.net))
 
