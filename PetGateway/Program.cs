@@ -17,7 +17,8 @@ builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
 
 //Add EF Core DI
-builder.Services.AddDbContext<GatewayContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("GatewayContext")));
+builder.Services.AddDbContext<GatewayContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("PetGateway_db")));
+
 
 //Add Identity Middleware
 builder.Services.AddIdentity<User, IdentityRole>(options =>

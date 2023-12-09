@@ -25,7 +25,7 @@ namespace PetGateway.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             List<User> users = new List<User>();
-            foreach (User user in userManager.Users)
+            foreach (User user in userManager.Users.ToList()) // remove .ToList() if not working
             {
                 user.RoleNames = await userManager.GetRolesAsync(user);
                 users.Add(user);
